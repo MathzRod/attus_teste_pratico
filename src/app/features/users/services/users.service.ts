@@ -62,6 +62,6 @@ export class UsersService {
   }
 
   getUsersWithError(): Observable<never> {
-    return throwError(() => new Error('Erro ao carregar usuários.'));
+    return throwError(() => new Error('Erro ao carregar usuarios.'));
   }
 }
