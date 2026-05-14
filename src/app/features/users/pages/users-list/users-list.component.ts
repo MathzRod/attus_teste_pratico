@@ -3,14 +3,18 @@ import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject, signal 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { catchError, debounceTime, distinctUntilChanged, finalize, of } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { catchError, debounceTime, distinctUntilChanged, filter, finalize, of, switchMap } from 'rxjs';
 
-import { UserFormDialogComponent, UserFormDialogData } from '../../components/user-form-dialog/user-form-dialog.component';
+import {
+  UserFormDialogComponent,
+  UserFormDialogData,
+  UserFormDialogResult,
+} from '../../components/user-form-dialog/user-form-dialog.component';
 import { UsersService } from '../../services/users.service';
 import { UsersStore } from '../../store/users.store';
-import { User } from '../../../../core/models/user.model';
+import { CreateUserPayload, User, UpdateUserPayload } from '../../../../core/models/user.model';
 
 @Component({
   selector: 'app-users-list',
@@ -43,27 +47,55 @@ export class UsersListComponent implements OnInit {
   }
 
   openCreateDialog(): void {
-    this.dialog.open<UserFormDialogComponent, UserFormDialogData>(
+    const dialogRef = this.dialog.open<
       UserFormDialogComponent,
-      {
-        width: '720px',
-        maxWidth: 'calc(100vw - 48px)',
-        panelClass: 'user-dialog-panel',
-        data: {},
-      }
-    );
+      UserFormDialogData,
+      UserFormDialogResult | undefined
+    >(UserFormDialogComponent, {
+      width: '720px',
+      maxWidth: 'calc(100vw - 48px)',
+      panelClass: 'user-dialog-panel',
+      data: {},
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((result): result is CreateUserPayload => {
+          return result !== undefined && !('id' in result);
+        }),
+        switchMap((payload) => this.usersService.createUser(payload)),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((createdUser) => {
+        this.usersStore.addUser(createdUser);
+      });
   }
 
   openEditDialog(user: User): void {
-    this.dialog.open<UserFormDialogComponent, UserFormDialogData>(
+    const dialogRef = this.dialog.open<
       UserFormDialogComponent,
-      {
-        width: '720px',
-        maxWidth: 'calc(100vw - 48px)',
-        panelClass: 'user-dialog-panel',
-        data: { user },
-      }
-    );
+      UserFormDialogData,
+      UserFormDialogResult | undefined
+    >(UserFormDialogComponent, {
+      width: '720px',
+      maxWidth: 'calc(100vw - 48px)',
+      panelClass: 'user-dialog-panel',
+      data: { user },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((result): result is UpdateUserPayload => {
+          return result !== undefined && 'id' in result;
+        }),
+        switchMap((payload) => this.usersService.updateUser(payload)),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((updatedUser) => {
+        this.usersStore.updateUser(updatedUser);
+      });
   }
 
   private loadUsers(): void {
@@ -74,7 +106,7 @@ export class UsersListComponent implements OnInit {
       .getUsers()
       .pipe(
         catchError(() => {
-          this.error.set('Nao foi possivel carregar os usuarios.');
+          this.error.set('Não foi possível carregar os usuários.');
           return of([]);
         }),
         finalize(() => {
