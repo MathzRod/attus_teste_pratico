@@ -7,16 +7,16 @@
         id="email"
         type="email"
         formControlName="email"
-        placeholder="Usuário (e-mail) *"
-        aria-label="Usuário e-mail"
+        placeholder="Usuario (e-mail) *"
+        aria-label="Usuario e-mail"
       />
 
       @if (email.hasError('required') && email.touched) {
-        <span class="form-error">E-mail é obrigatório.</span>
+        <span class="form-error">E-mail e obrigatorio.</span>
       }
 
       @if (email.hasError('email') && email.touched) {
-        <span class="form-error">Informe um e-mail válido.</span>
+        <span class="form-error">Informe um e-mail valido.</span>
       }
     </div>
 
@@ -30,7 +30,7 @@
       />
 
       @if (name.hasError('required') && name.touched) {
-        <span class="form-error">Nome é obrigatório.</span>
+        <span class="form-error">Nome e obrigatorio.</span>
       }
     </div>
 
@@ -45,11 +45,11 @@
         />
 
         @if (cpf.hasError('required') && cpf.touched) {
-          <span class="form-error">CPF é obrigatório.</span>
+          <span class="form-error">CPF e obrigatorio.</span>
         }
 
         @if (cpf.hasError('pattern') && cpf.touched) {
-          <span class="form-error">Formato inválido.</span>
+          <span class="form-error">Formato invalido.</span>
         }
       </div>
 
@@ -58,16 +58,16 @@
           id="phone"
           type="text"
           formControlName="phone"
-          placeholder="Número do telefone *"
-          aria-label="Número do telefone"
+          placeholder="Numero do telefone *"
+          aria-label="Numero do telefone"
         />
 
         @if (phone.hasError('required') && phone.touched) {
-          <span class="form-error">Telefone é obrigatório.</span>
+          <span class="form-error">Telefone e obrigatorio.</span>
         }
 
         @if (phone.hasError('pattern') && phone.touched) {
-          <span class="form-error">Formato inválido.</span>
+          <span class="form-error">Formato invalido.</span>
         }
       </div>
 
@@ -83,13 +83,13 @@
         </select>
 
         @if (phoneType.hasError('required') && phoneType.touched) {
-          <span class="form-error">Tipo é obrigatório.</span>
+          <span class="form-error">Tipo e obrigatorio.</span>
         }
       </div>
     </div>
 
     <p class="dialog__info">
-      O usuário receberá uma senha provisória para acesso ao sistema por SMS.
+      O usuario recebera uma senha provisoria para acesso ao sistema por SMS.
     </p>
 
     <div class="dialog__actions">

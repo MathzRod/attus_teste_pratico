@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-import {CreateUserPayload, PhoneType, User} from '../../../../core/models/user.model';
+import { CreateUserPayload, PhoneType, User } from '../../../../core/models/user.model';
 
 export interface UserFormDialogData {
   user?: User;
@@ -62,7 +60,7 @@ export class UserFormDialogComponent {
   });
 
   get title(): string {
-    return this.isEditing ? 'Editar usuário' : 'Adicionar novo usuário';
+    return this.isEditing ? 'Editar usuario' : 'Adicionar novo usuario';
   }
 
   get email() {
@@ -84,7 +82,6 @@ export class UserFormDialogComponent {
   get phoneType() {
     return this.form.controls.phoneType;
   }
-
 
   onSubmit(): void {
     if (this.form.invalid) {

@@ -5,7 +5,6 @@ import {
   UserFormDialogComponent,
   UserFormDialogData,
 } from './user-form-dialog.component';
-
 import { User } from '../../../../core/models/user.model';
 
 describe('UserFormDialogComponent', () => {
@@ -49,7 +48,7 @@ describe('UserFormDialogComponent', () => {
 
     expect(component.form.invalid).toBe(true);
     expect(component.isEditing).toBe(false);
-    expect(component.title).toBe('Adicionar novo usuário');
+    expect(component.title).toBe('Adicionar novo usuario');
   });
 
   it('should validate form when valid data is provided', async () => {
@@ -57,7 +56,7 @@ describe('UserFormDialogComponent', () => {
 
     component.form.setValue({
       email: 'teste@attornatus.com.br',
-      name: 'Usuário Teste',
+      name: 'Usuario Teste',
       cpf: '123.456.789-00',
       phone: '(11) 99999-9999',
       phoneType: 'mobile',
@@ -71,7 +70,7 @@ describe('UserFormDialogComponent', () => {
 
     const formData = {
       email: 'novo@attornatus.com.br',
-      name: 'Novo Usuário',
+      name: 'Novo Usuario',
       cpf: '123.456.789-00',
       phone: '(11) 99999-9999',
       phoneType: 'mobile' as const,
@@ -96,7 +95,7 @@ describe('UserFormDialogComponent', () => {
     await setup({ user });
 
     expect(component.isEditing).toBe(true);
-    expect(component.title).toBe('Editar usuário');
+    expect(component.title).toBe('Editar usuario');
     expect(component.form.getRawValue()).toEqual({
       email: user.email,
       name: user.name,

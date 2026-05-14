@@ -1,15 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { UsersListComponent } from './users-list.component';
 import { UsersService } from '../../services/users.service';
 import { UsersStore } from '../../store/users.store';
-
-import {
-  CreateUserPayload,
-  User,
-} from '../../../../core/models/user.model';
+import { CreateUserPayload, User } from '../../../../core/models/user.model';
 
 describe('UsersListComponent', () => {
   let fixture: ComponentFixture<UsersListComponent>;
@@ -37,7 +33,7 @@ describe('UsersListComponent', () => {
 
   const createdUser: User = {
     id: 3,
-    name: 'Novo Usuário',
+    name: 'Novo Usuario',
     email: 'novo@attornatus.com.br',
     cpf: '111.222.333-44',
     phone: '(11) 97777-7777',
@@ -50,9 +46,9 @@ describe('UsersListComponent', () => {
   };
 
   const usersServiceMock = {
-    getUsers: vi.fn(() => of(usersMock)),
-    createUser: vi.fn(() => of(createdUser)),
-    updateUser: vi.fn(() => of(updatedUser)),
+    getUsers: vi.fn(),
+    createUser: vi.fn(),
+    updateUser: vi.fn(),
   };
 
   const dialogMock = {
@@ -64,10 +60,13 @@ describe('UsersListComponent', () => {
   }
 
   beforeEach(async () => {
-    usersServiceMock.getUsers.mockClear();
-    usersServiceMock.createUser.mockClear();
-    usersServiceMock.updateUser.mockClear();
-    dialogMock.open.mockClear();
+    usersServiceMock.getUsers.mockReset();
+    usersServiceMock.getUsers.mockReturnValue(of(usersMock));
+    usersServiceMock.createUser.mockReset();
+    usersServiceMock.createUser.mockReturnValue(of(createdUser));
+    usersServiceMock.updateUser.mockReset();
+    usersServiceMock.updateUser.mockReturnValue(of(updatedUser));
+    dialogMock.open.mockReset();
 
     TestBed.configureTestingModule({
       imports: [UsersListComponent],
@@ -109,6 +108,20 @@ describe('UsersListComponent', () => {
     expect(component.users()).toEqual(usersMock);
   });
 
+  it('should show an error message when loading users fails', () => {
+    usersServiceMock.getUsers.mockReturnValueOnce(
+      throwError(() => new Error('Falha ao carregar'))
+    );
+
+    fixture.detectChanges();
+    fixture.detectChanges();
+
+    const content = fixture.nativeElement.textContent;
+
+    expect(component.error()).toBe('Nao foi possivel carregar os usuarios.');
+    expect(content).toContain('Nao foi possivel carregar os usuarios.');
+  });
+
   it('should filter users by search term with debounce', async () => {
     fixture.detectChanges();
 
@@ -133,7 +146,7 @@ describe('UsersListComponent', () => {
 
   it('should open create dialog and add user when dialog returns data', () => {
     const createPayload: CreateUserPayload = {
-      name: 'Novo Usuário',
+      name: 'Novo Usuario',
       email: 'novo@attornatus.com.br',
       cpf: '111.222.333-44',
       phone: '(11) 97777-7777',

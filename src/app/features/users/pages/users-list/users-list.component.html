@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <h1>USUÁRIOS</h1>
+      <h1>USUARIOS</h1>
     </div>
 
     <div class="topbar__search">
@@ -15,17 +15,21 @@
         type="text"
         [formControl]="searchControl"
         placeholder="Pesquisar..."
-        aria-label="Pesquisar usuário"
+        aria-label="Pesquisar usuario"
       />
     </div>
   </header>
 
   <main class="users-page">
     <section class="users-section">
-      <h2>Usuários cadastrados</h2>
+      <h2>Usuarios cadastrados</h2>
 
-      @if (loading()){
-        <p class="feedback">Carregando usuários...</p>
+      @if (loading()) {
+        <p class="feedback">Carregando usuarios...</p>
+      }
+
+      @if (!loading() && error()) {
+        <p class="error">{{ error() }}</p>
       }
 
       @if (!loading() && !error()) {
@@ -47,22 +51,26 @@
               <button
                 class="icon-button user-row__edit"
                 type="button"
-                aria-label="Editar usuário"
+                aria-label="Editar usuario"
                 (click)="openEditDialog(user)"
               >
                 <mat-icon>edit</mat-icon>
               </button>
             </article>
           } @empty {
-            <p class="feedback">Nenhum usuário encontrado.</p>
+            <p class="feedback">Nenhum usuario encontrado.</p>
           }
         </div>
       }
-
     </section>
   </main>
 
-  <button class="fab" type="button" aria-label="Adicionar usuário" (click)="openCreateDialog()" >
+  <button
+    class="fab"
+    type="button"
+    aria-label="Adicionar usuario"
+    (click)="openCreateDialog()"
+  >
     <mat-icon>add</mat-icon>
   </button>
 </div>

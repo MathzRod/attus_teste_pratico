@@ -106,7 +106,7 @@ export class UsersListComponent implements OnInit {
       .getUsers()
       .pipe(
         catchError(() => {
-          this.error.set('Não foi possível carregar os usuários.');
+          this.error.set('Nao foi possivel carregar os usuarios.');
           return of([]);
         }),
         finalize(() => {
