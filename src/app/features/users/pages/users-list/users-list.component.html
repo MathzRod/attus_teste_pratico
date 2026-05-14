@@ -23,7 +23,41 @@
     <section class="users-section">
       <h2>Usuários cadastrados</h2>
 
-      <div class="users-list">
+      @if (loading()){
+        <p class="feedback">Carregando usuários...</p>
+      }
+
+      @if (!loading() && !error()) {
+        <div class="users-list">
+          @for (user of users(); track user.id) {
+            <article class="user-row">
+              <div class="user-row__icon">
+                <mat-icon>person</mat-icon>
+              </div>
+
+              <strong class="user-row__name">
+                {{ user.name }}
+              </strong>
+
+              <span class="user-row__email">
+                {{ user.email }}
+              </span>
+
+              <button
+                class="icon-button user-row__edit"
+                type="button"
+                aria-label="Editar usuário"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </article>
+          } @empty {
+            <p class="feedback">Nenhum usuário encontrado.</p>
+          }
+        </div>
+      }
+
+      <!-- <div class="users-list">
         @for (user of users; track user.id) {
           <article class="user-row">
             <div class="user-row__icon">
@@ -47,7 +81,7 @@
             </button>
           </article>
         }
-      </div>
+      </div> -->
     </section>
   </main>
 
