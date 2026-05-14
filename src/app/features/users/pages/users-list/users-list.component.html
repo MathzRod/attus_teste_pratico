@@ -1,0 +1,57 @@
+<div class="app-shell">
+  <header class="topbar">
+    <div class="topbar__brand">
+      <button class="icon-button" type="button" aria-label="Abrir menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <h1>USUÁRIOS</h1>
+    </div>
+
+    <div class="topbar__search">
+      <mat-icon>search</mat-icon>
+
+      <input
+        type="text"
+        placeholder="Pesquisar..."
+        aria-label="Pesquisar usuário"
+      />
+    </div>
+  </header>
+
+  <main class="users-page">
+    <section class="users-section">
+      <h2>Usuários cadastrados</h2>
+
+      <div class="users-list">
+        @for (user of users; track user.id) {
+          <article class="user-row">
+            <div class="user-row__icon">
+              <mat-icon>person</mat-icon>
+            </div>
+
+            <strong class="user-row__name">
+              {{ user.name }}
+            </strong>
+
+            <span class="user-row__email">
+              {{ user.email }}
+            </span>
+
+            <button
+              class="icon-button user-row__edit"
+              type="button"
+              aria-label="Editar usuário"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" type="button" aria-label="Adicionar usuário">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
