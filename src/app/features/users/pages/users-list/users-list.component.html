@@ -13,6 +13,7 @@
 
       <input
         type="text"
+        [formControl]="searchControl"
         placeholder="Pesquisar..."
         aria-label="Pesquisar usuário"
       />
@@ -57,31 +58,6 @@
         </div>
       }
 
-      <!-- <div class="users-list">
-        @for (user of users; track user.id) {
-          <article class="user-row">
-            <div class="user-row__icon">
-              <mat-icon>person</mat-icon>
-            </div>
-
-            <strong class="user-row__name">
-              {{ user.name }}
-            </strong>
-
-            <span class="user-row__email">
-              {{ user.email }}
-            </span>
-
-            <button
-              class="icon-button user-row__edit"
-              type="button"
-              aria-label="Editar usuário"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-          </article>
-        }
-      </div> -->
     </section>
   </main>
 
