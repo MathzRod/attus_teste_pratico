@@ -37,3 +37,18 @@ body {
   height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
+.user-dialog-panel {
+  .mat-mdc-dialog-container {
+    --mdc-dialog-container-color: transparent;
+    --mdc-dialog-container-shape: 0;
+    padding: 0;
+  }
+
+  .mdc-dialog__surface {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    overflow-x: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  }
+}

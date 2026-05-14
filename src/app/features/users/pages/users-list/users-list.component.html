@@ -48,6 +48,7 @@
                 class="icon-button user-row__edit"
                 type="button"
                 aria-label="Editar usuário"
+                (click)="openEditDialog(user)"
               >
                 <mat-icon>edit</mat-icon>
               </button>
@@ -61,7 +62,7 @@
     </section>
   </main>
 
-  <button class="fab" type="button" aria-label="Adicionar usuário">
+  <button class="fab" type="button" aria-label="Adicionar usuário" (click)="openCreateDialog()" >
     <mat-icon>add</mat-icon>
   </button>
 </div>

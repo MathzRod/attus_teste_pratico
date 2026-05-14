@@ -1,0 +1,106 @@
+<div class="dialog">
+  <h2>{{ title }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog__form">
+    <div class="form-control">
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Usuário (e-mail) *"
+        aria-label="Usuário e-mail"
+      />
+
+      @if (email.hasError('required') && email.touched) {
+        <span class="form-error">E-mail é obrigatório.</span>
+      }
+
+      @if (email.hasError('email') && email.touched) {
+        <span class="form-error">Informe um e-mail válido.</span>
+      }
+    </div>
+
+    <div class="form-control">
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Nome completo *"
+        aria-label="Nome completo"
+      />
+
+      @if (name.hasError('required') && name.touched) {
+        <span class="form-error">Nome é obrigatório.</span>
+      }
+    </div>
+
+    <div class="dialog__row">
+      <div class="form-control">
+        <input
+          id="cpf"
+          type="text"
+          formControlName="cpf"
+          placeholder="CPF *"
+          aria-label="CPF"
+        />
+
+        @if (cpf.hasError('required') && cpf.touched) {
+          <span class="form-error">CPF é obrigatório.</span>
+        }
+
+        @if (cpf.hasError('pattern') && cpf.touched) {
+          <span class="form-error">Formato inválido.</span>
+        }
+      </div>
+
+      <div class="form-control">
+        <input
+          id="phone"
+          type="text"
+          formControlName="phone"
+          placeholder="Número do telefone *"
+          aria-label="Número do telefone"
+        />
+
+        @if (phone.hasError('required') && phone.touched) {
+          <span class="form-error">Telefone é obrigatório.</span>
+        }
+
+        @if (phone.hasError('pattern') && phone.touched) {
+          <span class="form-error">Formato inválido.</span>
+        }
+      </div>
+
+      <div class="form-control">
+        <select
+          id="phoneType"
+          formControlName="phoneType"
+          aria-label="Tipo de telefone"
+        >
+          <option value="mobile">CELULAR</option>
+          <option value="home">RESIDENCIAL</option>
+          <option value="work">COMERCIAL</option>
+        </select>
+
+        @if (phoneType.hasError('required') && phoneType.touched) {
+          <span class="form-error">Tipo é obrigatório.</span>
+        }
+      </div>
+    </div>
+
+    <p class="dialog__info">
+      O usuário receberá uma senha provisória para acesso ao sistema por SMS.
+    </p>
+
+    <div class="dialog__actions">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        SALVAR
+      </button>
+    </div>
+  </form>
+</div>
