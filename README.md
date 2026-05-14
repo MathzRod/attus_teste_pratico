@@ -7,6 +7,14 @@ O projeto reproduz uma tela de listagem de usuários com busca, cadastro e ediç
 
 ---
 
+## Documentação
+
+A explicação completa das soluções, incluindo refatorações, exemplos de código e justificativas técnicas, está disponível no PDF abaixo:
+
+📄 [Baixar documentação completa em PDF](./docs/desafio_frontend_attus_MatheusRodrigues.pdf)
+
+---
+
 ## Tecnologias utilizadas
 
 - Angular 21, atendendo ao requisito Angular 17+
